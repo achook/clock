@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["index.pug"],"sourcesContent":["doctype html\r\nhead\r\n\tmeta(charset=\"UTF-8\")\r\n\ttitle Clock\r\n\r\n\tlink(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700')\r\n\tlink(rel='stylesheet' href='styles/main.css')\r\n\r\nbody\r\n\tscript(src='scripts/main.js')"],"file":"index.html"}

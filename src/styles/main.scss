@@ -1,0 +1,103 @@
+@import 'normalize';
+
+$min-width: 300px;
+$max-width: 1600px;
+$min-font: 60px;
+$max-font: 300px;
+$min-anaglyph-offset: 2px;
+$max-anaglyph-offset: 6px;
+$font: 'Montserrat', 'Segoe UI', 'Roboto', sans-serif;
+
+
+@function strip-unit($value) {
+	@return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+	$u1: unit($min-vw);
+	$u2: unit($max-vw);
+	$u3: unit($min-font-size);
+	$u4: unit($max-font-size);
+	
+	@if $u1==$u2 and $u1==$u3 and $u1==$u4 {
+		
+		& {
+			font-size: $min-font-size;
+			@media screen and (min-width: $min-vw) {
+				font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+			}
+			@media screen and (min-width: $max-vw) {
+				font-size: $max-font-size;
+			}
+		}
+	}
+}
+
+@mixin anaglyph($min-vw, $max-vw, $min-offset, $max-offset, $ratio) {
+	$u1: unit($min-vw);
+	$u2: unit($max-vw);
+	$u3: unit($min-offset);
+	$u4: unit($max-offset);
+	
+	@if $u1==$u2 and $u3==$u4 {
+		
+		& {
+			text-shadow: (0 - $min-offset) * $ratio 0 0 rgba(255, 0, 0, .7), ($min-offset) * $ratio 0 0 rgba(0, 255, 255, .7);
+			@media screen and (min-width: $min-vw) {
+
+				text-shadow: (calc(0px - ((#{$min-offset} + #{strip-unit($max-offset - $min-offset)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})) * #{$ratio}))) 0 0 rgba(255, 0, 0, .7),
+				(calc((#{$min-offset} + #{strip-unit($max-offset - $min-offset)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})) * #{$ratio}) 0 0 rgba(0, 255, 255, .7));
+
+
+			}
+			@media screen and (min-width: $max-vw) {
+				text-shadow: (0 - $max-offset) * $ratio 0 0 rgba(255, 0, 0, .7), ($max-offset) * $ratio 0 0 rgba(0, 255, 255, .7);
+			}
+		}
+	}
+}
+
+:root {
+	@include fluid-type($min-width, $max-width, $min-font, $max-font);
+	font-smooth: always;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	cursor: none;
+}
+
+#clock {
+	text-align: center;
+	font-family: $font;
+	font-weight: bold;
+
+	position: fixed;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: black;
+	color: white;
+}
+
+.time,
+.date {
+	margin: 0;
+	letter-spacing: 2px;
+}
+
+.time {
+	font-size: 1em;
+	@include anaglyph($min-width, $max-width, $min-anaglyph-offset, $max-anaglyph-offset, 1);
+}
+
+.date {
+	font-size: 0.7em;
+	@include anaglyph($min-width, $max-width, $min-anaglyph-offset, $max-anaglyph-offset, .7);
+}
