@@ -59,3 +59,8 @@ function setTime() {
 }
 
 setInterval(setTime, 50)
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/sw.js')
+}
