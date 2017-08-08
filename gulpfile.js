@@ -40,7 +40,9 @@ gulp.task('js', function () {
 gulp.task('css', function () {
   return gulp.src('src/**/*.scss')
     .pipe(sass())
-    .pipe(csso())
+    .pipe(csso({
+      comments: false
+    }))
     .pipe(gulp.dest('dist'))
 })
 

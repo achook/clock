@@ -57,6 +57,5 @@
   "theme_color": "#000000",
   "background_color": "#000000",
   "start_url": "https://clock.kucza.xyz/index.html",
-  "display": "fullscreen",
-  "orientation": "landscape-primary"
+  "display": "fullscreen"
 }

@@ -1,11 +1,15 @@
 const m = require('mithril')
 
-const root = document.body
-
 function setLeadingZero(number) {
-  number = parseInt(number)
-  if (number < 10) return '0' + number
-  return number
+  if (typeof number === 'string' || typeof number === 'number') {
+    number = parseInt(number)
+    if (number < 10) return '0' + number
+    return number
+  } else {
+    console.error('Argument provided to function setLeadingZero must be string or number')
+    return undefined
+  }
+  
 }
 
 function setTime() {
@@ -23,7 +27,7 @@ function setTime() {
     date: {
       divider: '.',
       data: {
-        day: date.getDay(),
+        day: date.getDate(),
         month: setLeadingZero(date.getMonth() + 1),
         year: date.getFullYear()
       }
@@ -53,9 +57,7 @@ function setTime() {
     )
   }
 
-
-
-  m.render(root, m('div', { id: 'clock' }, blocksArray))
+  m.render(document.body, m('div', { id: 'clock' }, blocksArray))
 }
 
 setInterval(setTime, 50)

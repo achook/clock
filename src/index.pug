@@ -3,6 +3,8 @@ head
   meta(charset='UTF-8')
   title Clock
 
+  script(async defer src='scripts/main.js')
+
   link(rel='manifest' href='manifest.json')
   meta(name='msapplication-config' content='browserconfig.xml')
 
@@ -18,8 +20,7 @@ head
   meta(name='msapplication-TileImage' content='/icons/mstile-144x144.png')
   meta(name='theme-color' content='#000000')
 
-  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700')
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:700')
   link(rel='stylesheet' href='styles/main.css')
 
 body
-  script(src='scripts/main.js')
